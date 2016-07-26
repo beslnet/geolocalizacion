@@ -1,0 +1,23 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @place.name %>
+</p>
+
+<p>
+  <strong>Address:</strong>
+  <%= @place.address %>
+</p>
+
+<%= image_tag "http://maps.google.com/maps/api/staticmap?size=450x300&sensor=false&zoom=16&markers=#{@place.latitude}%2C#{@place.longitude}" %>
+
+<h3>Ubicaciones más cercanas (hasta 20 km)</h3>
+<ul>
+<% for place in @place.nearbys(20, :units => :km) %>
+  <li><%= link_to place.address, place %> (<%= place.distance.round(2) %> km)</li>
+<% end %>
+</ul>
+
+<%= link_to 'Edit', edit_place_path(@place), :class => "btn btn-info" %> 
+<%= link_to 'Back', places_path, :class => "btn btn-info" %>

@@ -1,0 +1,41 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listado de lugares</h1>
+<div class="centered">
+  
+  <%= form_tag places_path, :method => :get do %>
+    <p>
+      <%= text_field_tag :search, params[:search],:id => 'geo-input' %>
+      <%= submit_tag "Buscar ubicaciones a 10 KM de distancia", :name => nil %>
+    </p>
+  <% end %>
+</div>
+<div class="table-responsive">
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Address</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @places.each do |place| %>
+      <tr>
+        <td><%= place.name %></td>
+        <td><%= place.address %></td>
+        <td><%= link_to 'Ver Ubicación', place, :class => "btn btn-info" %></td>
+        <td><%= link_to 'Editar', edit_place_path(place), :class => "btn btn-info"%></td>
+        <td><%= link_to 'Eliminar', place, method: :delete, data: { confirm: 'Are you sure?' }, :class => "btn btn-info" %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+</div>
+
+<br>
+
+
+
+<%= link_to 'Ingresar nueva ubicación', new_place_path, :class => "btn btn-info" %>

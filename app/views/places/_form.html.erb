@@ -1,0 +1,27 @@
+<%= bootstrap_form_for(@place) do |f| %>
+  <% if @place.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@place.errors.count, "error") %> prohibited this place from being saved:</h2>
+
+      <ul>
+      <% @place.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+<div class="row">
+<div class="col-xs-12 col-md-8">
+    <%= f.text_field :name %>
+    <%= f.text_field :address, :id => 'geo-input' %>
+    <input id="find" type="button" value="Encontrar mi ubicación en el mapa" class="btn btn-info"/>
+    <p><div class="map_canvas" id="map_canvas"></div></p>
+    <p><a id="reset" href="#" style="display:none;">Reiniciar Ubicación</a></p>
+    <%= f.hidden_field :latitude, id: :latitude, name: :lat%>
+    <%= f.hidden_field :longitude, id: :longitude, name: :lng %>
+
+    <p><%= f.submit %></p>
+<% end %>
+<div class="col-xs-12 col-md-8">
+</div>
